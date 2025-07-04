@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: "",
     },
-    refersh_token: {
+    refresh_token: {
       type: String,
       default: "",
     },
