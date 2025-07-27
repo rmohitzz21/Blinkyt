@@ -1,11 +1,14 @@
-import { Resend } from "resend";
+import {Resend} from "resend";
 import dotenv from "dotenv";
-const resend = new Resend(process.env.RESEND_API);
+
 dotenv.config();
 
 if (!process.env.RESEND_API) {
   console.log("Provide RESEND_API in side the .env File ");
 }
+
+const resend = new Resend(process.env.RESEND_API);
+
 const sendEmail = async ({ name, sendTo, subject, html }) => {
   try {
     const { data, error } = await resend.emails.send({

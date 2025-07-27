@@ -30,3 +30,22 @@ gensalt : -
 <!-- SendEmail.Js -->
 Resend Api Added For mail Send
 dotenv.config  : 
+
+<!-- For Avatar -->
+
+Cloudinary 
+
+
+1 Register User Api
+2 Verify email Api
+3 login user Api
+4 Logout Api
+5 Upload Avatar Api
+6 Update UserDetails Api
+7 Forgott Pasword Api
+8 Verify Forgot Paswword Otp
+9 Reset Password Api
+10 Refresh Token
+
+
+1 : 41 

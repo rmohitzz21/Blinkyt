@@ -10,10 +10,20 @@ import connectDB from './config/connectDB.js';
 import userRouter from './route/user.route.js';
 const app = express();
 
+// 
+const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
+
 app.use(cors({
-    credentials:true,
-    origin: process.env.FRONTED_URL
-}))
+    
+    origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+}));
 
 app.use(express.json())
 app.use(cookieParser())
