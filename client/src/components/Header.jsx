@@ -6,6 +6,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Search from "./Search";
 import useMobile from "../hooks/useMobile";
 import { TiShoppingCart } from "react-icons/ti"
+import { useSelector } from "react-redux";
+
 
 
 
@@ -19,7 +21,10 @@ const Header = () => {
     navigate("/login");
   };
 
-
+  
+  const user = useSelector((state) => state.user);
+  // console.log(`User: ${user}`);
+  
   // console.log(`Is mobile: ${isMobile}`);
   const isSearchPage = location.pathname === "/search";
 

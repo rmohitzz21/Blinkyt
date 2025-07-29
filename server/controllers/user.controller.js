@@ -151,6 +151,10 @@ export async function loginController(request, response) {
     const accessToken = await generateAccessToken(user._id);
     const refreshToken = await generateRefreshToken(user._id);
 
+    const updatedUser = await userModel.findByIdAndUpdate(user._id,{
+      last_login_date: new Date()
+    })
+
     const cookiesOption = {
       httpOnly: true,
       secure: true,
@@ -370,6 +374,11 @@ export async function verifyForgotPasswordOtp(request, response) {
       });
     }
 
+    const updateUser = await userModel.findByIdAndUpdate(user?._id,{
+      forgot_password_otp: "",
+      forgot_password_expiry: "",
+    });
+
     // OTP is valid, proceed with password reset
     return response.json({
       message: "OTP is valid",
@@ -500,4 +509,29 @@ export async function refreshTokenController(request, response) {
       success: false,
     });
   }
+}
+
+
+//get Login User Details p-2
+
+export async function userDetails(request, response){
+   try {
+     const userId = request.userId; // Get user ID from the request object, set by auth middleware
+ 
+     const user = await userModel.findById(userId).select('-password -refresh_token') 
+     // Exclude sensitive fields like password and refresh_token
+ 
+     return response.json({
+       message: 'User Deails',
+       data: user,
+       error: false,
+       success: true,
+     });
+   } catch (error) {
+     return response.status(500).json({
+       message: error.message || error,
+       error: true,
+       success: false,
+     });
+   }
 }

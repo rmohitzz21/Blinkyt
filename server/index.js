@@ -8,13 +8,14 @@ import helmet from 'helmet'
 
 import connectDB from './config/connectDB.js';
 import userRouter from './route/user.route.js';
+import categoryRouter from './route/category.route.js';
 const app = express();
 
 // 
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
 
 app.use(cors({
-    
+// Allow requests from specific origins    
     origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true)
@@ -23,7 +24,7 @@ app.use(cors({
     }
   },
   credentials: true,
-}));
+})); 
 
 app.use(express.json())
 app.use(cookieParser())
@@ -43,6 +44,7 @@ app.get("/", (req,res)=> {
 
 
 app.use('/api/user', userRouter)
+app.use("/api/category", categoryRouter);
 
 connectDB().then(() =>{
     app.listen(PORT, () => {
