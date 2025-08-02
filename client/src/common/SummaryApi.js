@@ -35,6 +35,25 @@ const SummaryApi = {
         url: '/api/user/user-details',
         method: "get",
     },
+    logout:{
+        url : '/api/user/logout',
+        method: 'get'
+    },
+    
+    refershToken:{
+        url: '/api/user/refresh-token',
+        method: 'post'
+    },
+    uploadAvatar: {
+        url: 'api/user/upload-avatar',
+        method: 'put',
+    },
+    updateUserDetails: {
+        url: 'api/user/update-user',
+        method: 'put',
+    },
+    
+
 };
 
 export default SummaryApi;

@@ -7,6 +7,11 @@ import Register from '../pages/Register.jsx';
 import ForgotPassword from '../pages/ForgotPassword.jsx';
 import ResetPassword from '../pages/ResetPassword.jsx';
 import OtpVerification from '../pages/OtpVerification.jsx';
+import UserMenuMobile from '../pages/UserMenuMobile.jsx';
+import Dashboard from '../layouts/Dashboard.jsx';
+import Profile from '../pages/Profile.jsx';
+import MyOrders from '../pages/MyOrders.jsx';
+import Address from '../pages/Address.jsx';
 const router = createBrowserRouter([
     {
         path : '/',
@@ -39,6 +44,28 @@ const router = createBrowserRouter([
             {
                 path: 'verification-otp',
                 element: <OtpVerification />
+            },
+            {
+                path:'user',
+                element:<UserMenuMobile/>
+            },
+            {
+                path:"dashboard",
+                element:<Dashboard/>,
+                children:[
+                    {
+                        path: 'profile',
+                        element:<Profile/>
+                    },
+                    {
+                        path: 'myorders',
+                        element:<MyOrders/>
+                    },
+                    {
+                        path: 'address',
+                        element:<Address/>
+                    }
+                ]
             }
         ]
     }

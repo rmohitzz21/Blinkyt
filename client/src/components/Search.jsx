@@ -1,88 +1,105 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 import useMobile from "../hooks/useMobile";
-import { Link } from "react-router-dom"; // Import Link for navigation
 
 const Search = () => {
-  const navigate = useNavigate(); // used to navigate to the search page
-  const location = useLocation(); // used to get the current location
-  const [isSearchPage, setIsSearchPage] = useState(false); // state to check if the current page is the search page
-  // console.log(location);
-  const [isMobile] = useMobile(); // custom hook to check if the device is mobile
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isSearchPage, setIsSearchPage] = useState(false);
+  const [isMobile] = useMobile();
 
   useEffect(() => {
-    const isSearch = location.pathname === "/search";
-    setIsSearchPage(isSearch);
-  }, [location]); // [] is used to run the effect only once when the component mounts
+    setIsSearchPage(location.pathname === "/search");
+  }, [location]);
 
   const redirectToSearchPage = () => {
-    navigate("/search"); // navigate to the search page
+    navigate("/search");
   };
 
-  // console.log(`Is Search Page: ${isSearchPage}`); // log the current page
-
   return (
-    <div className="w-full  min-w-[300px] lg:min-w-[420px] h-11 lg:h-12 rounded-lg border overflow-hidden flex items-center text-neutral-500 bg-slate-50 group focus-within:border-primary-200  ">
-      {/* <button className="flex justify-center items-center h-full p-3 group-focus-within:text-primary-200">
-        <IoSearch size={22} />
-      </button> */}
-
-      <div>
+    <div
+      className="
+        w-full min-w-[300px] lg:min-w-[420px] h-12 rounded-lg border
+        bg-white flex items-center text-gray-600 
+        border-gray-300 focus-within:border-green-500 focus-within:ring-1 focus-within:ring-green-400
+        shadow-sm transition-colors duration-300
+        group
+      "
+    >
+      {/* Left Icon Area */}
+      <div className="flex items-center justify-center w-12 h-full text-green-600 cursor-pointer hover:text-green-800 transition-colors duration-200">
         {isMobile && isSearchPage ? (
           <Link
-            to={"/"}
-            className="flex justify-center items-center h-full p-2 m-1 group-focus-within:text-primary-200 bg-white rounded-full shadow-md"
+            to="/"
+            className="flex justify-center items-center w-9 h-9 bg-green-100 rounded-full shadow hover:bg-green-200 transition-colors"
+            aria-label="Back"
+            title="Back"
           >
-            <FaArrowLeft size={20} />
+            <FaArrowLeft size={16} />
           </Link>
         ) : (
-          <button className="flex justify-center items-center h-full p-3 group-focus-within:text-primary-200">
-            <IoSearch size={22} />
+          <button
+            onClick={redirectToSearchPage}
+            aria-label="Go to Search"
+            title="Go to Search"
+            className="flex justify-center items-center w-9 h-9 hover:text-green-800 transition-colors"
+          >
+            <IoSearch size={20} />
           </button>
         )}
       </div>
 
-      <div className="w-full h-full">
-        {
-          !isSearchPage ? (
-            // not In search page
-            <div
-              onClick={redirectToSearchPage}
-              className="w-full h-full px-3 text-sm outline-none bg-transparent cursor-pointer"
-            >
-            <TypeAnimation // This component will animate the text
+      {/* Input / Text Animation Area */}
+      <div className="flex-1 h-full flex items-center">
+        {!isSearchPage ? (
+          <div
+            onClick={redirectToSearchPage}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") redirectToSearchPage();
+            }}
+            className="
+              w-full px-4 text-gray-400 text-sm cursor-pointer select-none
+              hover:text-green-700 transition-colors duration-200
+              outline-none
+            "
+            aria-label="Search prompt"
+          >
+            <TypeAnimation
               sequence={[
                 'Search "milk"',
-                1000, // Waits 1 second before starting the next animation
+                1500,
                 'Search "bread"',
-                1000, // Waits 1 second before starting the next animation
+                1500,
                 'Search "eggs"',
-                1000, // Waits 1 second before starting the next animation
+                1500,
                 'Search "cheese"',
-                1000, // Waits 1 second before starting the next animation
+                1500,
                 'Search "vegetables"',
-                1000, // Waits 1 second before starting the next animation
+                1500,
                 'Search "fruits"',
-                1000, // Waits 1 second before starting the next animation
+                1500,
               ]}
               wrapper="span"
-              speed={50} // Speed of the typing animation
-              repeat={Infinity} // Repeat the animation indefinitely
+              speed={50}
+              repeat={Infinity}
             />
           </div>
         ) : (
-          // In search page
-          <div className="w-full h-full">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full h-full px-3 text-sm outline-none bg-transparent"
-              autoFocus
-            />
-          </div>
+          <input
+            type="search"
+            placeholder="Type to search..."
+            className="
+              w-full h-full px-4 text-gray-700 text-sm bg-transparent outline-none
+              placeholder:text-gray-400
+            "
+            autoFocus
+            aria-label="Search input"
+          />
         )}
       </div>
     </div>
